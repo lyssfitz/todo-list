@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './ToDoItem.css';
 
 class ToDoItem extends Component {
 	constructor(props) {
@@ -11,6 +12,7 @@ class ToDoItem extends Component {
 		this.handleRemove = this.handleRemove.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
 		this.toggleForm = this.toggleForm.bind(this);
+		this.handleToggle = this.handleToggle.bind(this);
 	}
 	handleRemove() {
 		this.props.removeToDo(this.props.id);
@@ -29,6 +31,9 @@ class ToDoItem extends Component {
 			[evt.target.name]: evt.target.value,
 		});
 	}
+	handleToggle(evt) {
+		this.props.toggleToDo(this.props.id);
+	}
 
 	render() {
 		let result;
@@ -46,7 +51,9 @@ class ToDoItem extends Component {
 				<div>
 					<button onClick={this.toggleForm}>Edit</button>
 					<button onClick={this.handleRemove}>X</button>
-					<li>{this.props.task}</li>
+					<li className={this.props.completed ? 'completed' : ''} onClick={this.handleToggle}>
+						{this.props.task}
+					</li>
 				</div>
 			);
 		}
